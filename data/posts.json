@@ -1,12 +1,14 @@
 [
     {
         "id": 1,
-        "title": "班主任教资想要起飞",
+        "title": "班主任教资想要起飞？",
+        "slug": "ban-zhang-jiao-zi-xiang-yao-qi-fei",
         "excerpt": "推荐学生加入戒网瘾学院，不看一下隔壁四川怎么了",
         "category": "tech",
         "date": "2026-06-14",
         "readTime": "5 分钟",
         "color": "linear-gradient(135deg, #6c5ce7, #a29bfe)",
-        "icon": "fa-solid fa-book"
+        "icon": "fa-solid fa-book",
+        "content": "<p>在2026年6月16日，某班主任在违反规定情形下，推荐学生加入戒网瘾学院。</p><p>更多内容正在完善中...</p>"
     }
 ]

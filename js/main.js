@@ -179,33 +179,35 @@ function getCategoryLabel(category) {
 
 function createBlogCard(post) {
     return `
-        <article class="blog__card" data-category="${post.category}" style="animation-delay: ${Math.random() * 0.3}s">
-            <div class="blog__card-image-placeholder" style="background: ${post.color}">
-                <div class="card-bg"></div>
-                <i class="${post.icon}"></i>
-            </div>
-            <div class="blog__card-body">
-                <div class="blog__card-meta">
-                    <span class="blog__card-category ${post.category}">${getCategoryLabel(post.category)}</span>
-                    <span class="blog__card-date">
-                        <i class="far fa-calendar-alt"></i>
-                        ${post.date}
-                    </span>
+        <a href="article.html?id=${post.id}" class="blog__card-link">
+            <article class="blog__card" data-category="${post.category}" style="animation-delay: ${Math.random() * 0.3}s">
+                <div class="blog__card-image-placeholder" style="background: ${post.color}">
+                    <div class="card-bg"></div>
+                    <i class="${post.icon}"></i>
                 </div>
-                <h3 class="blog__card-title">${post.title}</h3>
-                <p class="blog__card-excerpt">${post.excerpt}</p>
-                <div class="blog__card-footer">
-                    <div class="blog__card-author">
-                        <div class="blog__card-author-avatar">L</div>
-                        <span>Lieh Sad</span>
+                <div class="blog__card-body">
+                    <div class="blog__card-meta">
+                        <span class="blog__card-category ${post.category}">${getCategoryLabel(post.category)}</span>
+                        <span class="blog__card-date">
+                            <i class="far fa-calendar-alt"></i>
+                            ${post.date}
+                        </span>
                     </div>
-                    <div class="blog__card-read">
-                        ${post.readTime}
-                        <i class="fas fa-arrow-right"></i>
+                    <h3 class="blog__card-title">${post.title}</h3>
+                    <p class="blog__card-excerpt">${post.excerpt}</p>
+                    <div class="blog__card-footer">
+                        <div class="blog__card-author">
+                            <div class="blog__card-author-avatar">L</div>
+                            <span>Lieh Sad</span>
+                        </div>
+                        <div class="blog__card-read">
+                            ${post.readTime}
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </article>
+            </article>
+        </a>
     `;
 }
 
@@ -522,6 +524,93 @@ function typeWriterEffect() {
 }
 
 /* ==============================
+   文章详情页
+   ============================== */
+function isArticlePage() {
+    return window.location.pathname.endsWith('article.html') || window.location.search.includes('id=');
+}
+
+function getArticleId() {
+    const params = new URLSearchParams(window.location.search);
+    return parseInt(params.get('id'));
+}
+
+function loadArticle() {
+    if (!isArticlePage()) return;
+
+    const articleId = getArticleId();
+    if (!articleId) {
+        document.getElementById('article-body').innerHTML = '<p class="article__empty">文章不存在</p>';
+        return;
+    }
+
+    // 从全局 blogPosts 中查找，如果还没加载则先加载
+    if (blogPosts.length === 0) {
+        fetch('data/posts.json')
+            .then(res => res.json())
+            .then(data => {
+                blogPosts = data;
+                renderArticle(articleId);
+            })
+            .catch(() => {
+                document.getElementById('article-body').innerHTML = '<p class="article__empty">文章加载失败</p>';
+            });
+    } else {
+        renderArticle(articleId);
+    }
+}
+
+function renderArticle(id) {
+    const post = blogPosts.find(p => p.id === id);
+    if (!post) {
+        document.getElementById('article-body').innerHTML = '<p class="article__empty">文章不存在</p>';
+        return;
+    }
+
+    // 更新页面标题
+    document.title = `${post.title} - LIEH SAD | 个人博客`;
+
+    // 更新 meta 信息
+    document.getElementById('article-title').textContent = post.title;
+    document.getElementById('article-category').textContent = getCategoryLabel(post.category);
+    document.getElementById('article-category').className = `blog__card-category ${post.category}`;
+    document.getElementById('article-date').innerHTML = `<i class="far fa-calendar-alt"></i> ${post.date}`;
+    document.getElementById('article-readtime').innerHTML = `<i class="far fa-clock"></i> ${post.readTime}`;
+
+    // 更新文章内容
+    document.getElementById('article-body').innerHTML = post.content || '<p>暂无内容</p>';
+
+    // 更新上下篇文章导航
+    const currentIndex = blogPosts.findIndex(p => p.id === id);
+    const prevPost = currentIndex > 0 ? blogPosts[currentIndex - 1] : null;
+    const nextPost = currentIndex < blogPosts.length - 1 ? blogPosts[currentIndex + 1] : null;
+
+    const prevLink = document.getElementById('article-prev');
+    const nextLink = document.getElementById('article-next');
+    const prevTitle = document.getElementById('article-prev-title');
+    const nextTitle = document.getElementById('article-next-title');
+
+    if (prevPost) {
+        prevLink.href = `article.html?id=${prevPost.id}`;
+        prevLink.style.display = 'flex';
+        prevTitle.textContent = prevPost.title;
+    } else {
+        prevLink.style.display = 'none';
+    }
+
+    if (nextPost) {
+        nextLink.href = `article.html?id=${nextPost.id}`;
+        nextLink.style.display = 'flex';
+        nextTitle.textContent = nextPost.title;
+    } else {
+        nextLink.style.display = 'none';
+    }
+
+    // 滚动到顶部
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ==============================
    初始化
    ============================== */
 function init() {
@@ -529,33 +618,11 @@ function init() {
     initTheme();
     listenSystemTheme();
 
-    // 从 JSON 加载博客数据
-    loadPosts();
-
-    // 页脚链接
-    initFooterLinks();
-
-    // 打字机效果
-    typeWriterEffect();
-
-    // 事件监听
+    // 事件监听（所有页面通用）
     dom.themeToggle.addEventListener('click', toggleTheme);
     dom.navToggle.addEventListener('click', toggleNav);
     dom.navClose.addEventListener('click', closeNav);
     dom.navLinks.forEach((link) => link.addEventListener('click', closeNav));
-
-    // 筛选按钮
-    dom.filterBtns.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            filterPosts(btn.getAttribute('data-filter'));
-        });
-    });
-
-    // 加载更多
-    dom.loadMore.addEventListener('click', loadMore);
-
-    // 联系表单
-    dom.contactForm.addEventListener('submit', handleContactSubmit);
 
     // 回到顶部
     dom.scrollUp.addEventListener('click', (e) => {
@@ -574,6 +641,34 @@ function init() {
     window.addEventListener('load', () => {
         updateActiveLink();
     });
+
+    // 如果是文章详情页，加载文章内容并跳过首页逻辑
+    if (isArticlePage()) {
+        loadArticle();
+        return;
+    }
+
+    // 从 JSON 加载博客数据
+    loadPosts();
+
+    // 页脚链接
+    initFooterLinks();
+
+    // 打字机效果
+    typeWriterEffect();
+
+    // 筛选按钮
+    dom.filterBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            filterPosts(btn.getAttribute('data-filter'));
+        });
+    });
+
+    // 加载更多
+    dom.loadMore.addEventListener('click', loadMore);
+
+    // 联系表单
+    dom.contactForm.addEventListener('submit', handleContactSubmit);
 }
 
 // DOM 加载完成后初始化
