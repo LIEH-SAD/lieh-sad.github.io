@@ -178,9 +178,15 @@ function getCategoryLabel(category) {
 }
 
 function createBlogCard(post) {
+    const isExternal = post.externalUrl ? true : false;
+    const href = isExternal ? post.externalUrl : `article.html?id=${post.id}`;
+    const target = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
+    const linkIcon = isExternal ? 'fas fa-external-link-alt' : 'fas fa-arrow-right';
+    const cardClass = isExternal ? ' blog__card--external' : '';
+
     return `
-        <a href="article.html?id=${post.id}" class="blog__card-link">
-            <article class="blog__card" data-category="${post.category}" style="animation-delay: ${Math.random() * 0.3}s">
+        <a href="${href}" class="blog__card-link"${target}>
+            <article class="blog__card${cardClass}" data-category="${post.category}" style="animation-delay: ${Math.random() * 0.3}s">
                 <div class="blog__card-image-placeholder" style="background: ${post.color}">
                     <div class="card-bg"></div>
                     <i class="${post.icon}"></i>
@@ -201,8 +207,8 @@ function createBlogCard(post) {
                             <span>Lieh Sad</span>
                         </div>
                         <div class="blog__card-read">
-                            ${post.readTime}
-                            <i class="fas fa-arrow-right"></i>
+                            ${isExternal ? '外部链接' : post.readTime}
+                            <i class="${linkIcon}"></i>
                         </div>
                     </div>
                 </div>

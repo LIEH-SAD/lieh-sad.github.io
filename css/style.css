@@ -582,6 +582,19 @@ textarea {
     border-color: transparent;
 }
 
+.blog__card--external .blog__card-read {
+    color: var(--text-lighter);
+    font-weight: 400;
+}
+
+.blog__card--external .blog__card-read i {
+    color: var(--primary-light);
+}
+
+.blog__card--external:hover .blog__card-read {
+    color: var(--primary-color);
+}
+
 @keyframes cardAppear {
     from {
         opacity: 0;
