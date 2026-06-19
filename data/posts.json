@@ -4,35 +4,11 @@
         "title": "班主任教资想要起飞？",
         "slug": "ban-zhang-jiao-zi-xiang-yao-qi-fei",
         "excerpt": "推荐学生加入戒网瘾学院，不看一下隔壁四川怎么了",
-        "category": "tech",
+        "category": "life",
         "date": "2026-06-14",
         "readTime": "5 分钟",
         "color": "linear-gradient(135deg, #6c5ce7, #a29bfe)",
         "icon": "fa-solid fa-book",
-        "content": "<p>在2026年6月16日，某班主任在违反规定情形下，推荐学生加入戒网瘾学院。</p><p>更多内容正在完善中...</p>"
-    },
-    {
-        "id": 2,
-        "title": "我的 GitHub 主页",
-        "slug": "my-github",
-        "excerpt": "来看看我的开源项目和代码贡献",
-        "category": "tech",
-        "date": "2026-06-18",
-        "readTime": "外部链接",
-        "color": "linear-gradient(135deg, #2d3436, #636e72)",
-        "icon": "fab fa-github",
         "externalUrl": "https://github.com/lieh-sad"
-    },
-    {
-        "id": 3,
-        "title": "B站空间 - 视频作品",
-        "slug": "bilibili-space",
-        "excerpt": "我的B站个人空间，分享各种视频内容",
-        "category": "life",
-        "date": "2026-06-15",
-        "readTime": "外部链接",
-        "color": "linear-gradient(135deg, #e17055, #fab1a0)",
-        "icon": "fab fa-bilibili",
-        "externalUrl": "https://space.bilibili.com/1336760259"
     }
 ]
