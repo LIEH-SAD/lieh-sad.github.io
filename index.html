@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="个人博客 - 分享技术、生活与思考">
+    <meta name="keywords" content="博客, 技术, 生活, 分享">
+    <meta name="author" content="LIEH SAD">
+    <title>LIEH SAD | 个人博客</title>
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+    <!-- 防止页面闪烁：在渲染前根据系统主题设置 data-theme -->
+    <script>
+        (function() {
+            var mode = localStorage.getItem('theme-mode') || 'auto';
+            var theme;
+            if (mode === 'auto') {
+                theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            } else {
+                theme = mode;
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#" class="nav__logo">
+                <span class="nav__logo-icon">&lt;/&gt;</span>
+                <span class="nav__logo-text">Lieh<span class="highlight">Sad</span></span>
+            </a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="#home" class="nav__link active-link">首页</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#blog" class="nav__link">文章</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#categories" class="nav__link">分类</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#about" class="nav__link">关于</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#contact" class="nav__link">联系</a>
+                    </li>
+                </ul>
+
+                <!-- 主题切换 & 移动端关闭 -->
+                <div class="nav__actions">
+                    <button class="theme-toggle" id="theme-toggle" aria-label="切换主题">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="nav__close" id="nav-close">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav__toggle" id="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <!-- 首页/Hero 区域 -->
+        <section class="hero section" id="home">
+            <div class="hero__bg"></div>
+            <div class="hero__container container">
+                <div class="hero__content">
+                    <div class="hero__data">
+                        <span class="hero__greeting">你好，我是</span>
+                        <h1 class="hero__title">LIEH-SAD</h1>
+                        <p class="hero__subtitle">一名在校高中生兼开发者</p>
+                        <p class="hero__description">
+                            科技
+                            VLOG
+                            生活
+                        </p>
+                        <div class="hero__buttons">
+                            <a href="#blog" class="btn btn--primary">
+                                <i class="fas fa-book-open"></i>
+                                阅读文章
+                            </a>
+                            <a href="#about" class="btn btn--outline">
+                                <i class="fas fa-user"></i>
+                                了解更多
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hero__social">
+                        <a href="https://github.com/lieh-sad" target="_blank" rel="noopener noreferrer" class="hero__social-link" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://space.bilibili.com/1336760259" target="_blank" rel="noopener noreferrer" class="hero__social-link" aria-label="Bilibili">
+                            <i class="fab fa-bilibili"></i>
+                        </a>
+                        <a href="https://wpa.qq.com/msgrd?v=3&uin=344726180&site=qq&menu=yes" target="_blank" rel="noopener noreferrer" class="hero__social-link" aria-label="邮箱">
+                            <i class="fa-brands fa-qq"></i>
+                        </a>
+                        <a href="https://www.mtrbbs.top/space-uid-1289.html" target="_blank" rel="noopener noreferrer" class="hero__social-link" aria-label="Medium">
+                            <i class="fa-solid fa-train"></i>
+                        </a>
+                        <a href="https://lieh-sad.github.io/nanbin/" target="_blank" rel="noopener noreferrer" class="hero__social-link" aria-label="邮箱">
+                            <i class="fa-solid fa-globe"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="hero__scroll">
+                <a href="#blog" class="hero__scroll-link">
+                    <span>所以...</span>
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- 博客文章区域 -->
+        <section class="blog section" id="blog">
+            <div class="container">
+                <div class="section__header">
+                    <span class="section__tag">Blog</span>
+                    <h2 class="section__title">最新文章</h2>
+                    <p class="section__subtitle">探索技术世界，分享知识与经验</p>
+                </div>
+
+                <div class="blog__filters">
+                    <button class="blog__filter-btn active" data-filter="all">全部</button>
+                    <button class="blog__filter-btn" data-filter="tech">技术</button>
+                    <button class="blog__filter-btn" data-filter="life">生活</button>
+                    <button class="blog__filter-btn" data-filter="tutorial">教程</button>
+                    <button class="blog__filter-btn" data-filter="notes">随笔</button>
+                </div>
+
+                <div class="blog__grid" id="blog-grid">
+                    <!-- 文章卡片由 JavaScript 动态生成 -->
+                </div>
+
+                <div class="blog__more">
+                    <button class="btn btn--primary" id="load-more">
+                        <i class="fas fa-sync-alt"></i>
+                        加载更多
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 分类区域 -->
+        <section class="categories section" id="categories">
+            <div class="container">
+                <div class="section__header">
+                    <span class="section__tag">COMPOSITION</span>
+                    <h2 class="section__title">成分分析</h2>
+                    <p class="section__subtitle">成分复杂，难以查清</p>
+                </div>
+
+                <div class="categories__grid">
+                    <div class="category__card" data-category="tech">
+                        <div class="category__icon">
+                            <i class="fa-solid fa-train-tram"></i>
+                        </div>
+                        <h3 class="category__title">车迷</h3>
+                        <p class="category__desc">“反对直特换桶”</p>
+                        <span class="category__count" id="count-tech">10 %</span>
+                    </div>
+                    <div class="category__card" data-category="life">
+                        <div class="category__icon">
+                            <i class="fa-solid fa-book-bookmark"></i>
+                        </div>
+                        <h3 class="category__title">学习</h3>
+                        <p class="category__desc">真的只是学习吗？</p>
+                        <span class="category__count" id="count-life">10 %</span>
+                    </div>
+                    <div class="category__card" data-category="tutorial">
+                        <div class="category__icon">
+                            <i class="fa-brands fa-windows"></i>
+                        </div>
+                        <h3 class="category__title">开发</h3>
+                        <p class="category__desc">游戏开发、教学探索</p>
+                        <span class="category__count" id="count-tutorial">15 %</span>
+                    </div>
+                    <div class="category__card" data-category="notes">
+                        <div class="category__icon">
+                            <i class="fa-solid fa-flask-vial"></i>
+                        </div>
+                        <h3 class="category__title">化学</h3>
+                        <p class="category__desc">化圈人才辈出</p>
+                        <span class="category__count" id="count-notes">15 %</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 关于我 -->
+        <section class="about section" id="about">
+            <div class="container">
+                <div class="section__header">
+                    <span class="section__tag">About</span>
+                    <h2 class="section__title">关于我</h2>
+                    <p class="section__subtitle">了解我的故事</p>
+                </div>
+
+                <div class="about__content">
+                    <div class="about__image-wrapper">
+                        <div class="about__image">
+                            <div class="about__image-placeholder">
+                                <img src="assets/about.jpg" alt="Lieh Sad">
+                            </div>
+                        </div>
+                        <div class="about__status">
+                            <span class="about__status-dot"></span>
+                            在线
+                        </div>
+                    </div>
+                    <div class="about__data">
+                        <h3 class="about__title">一名充满热情的开发者</h3>
+                        <p class="about__description">
+                            技术宅拯救世界
+                        </p>
+                        <p class="about__description">
+                            TECH OTAKUS SAVE THE WORLD
+                        </p>
+                        <div class="about__info">
+                            <div class="about__info-item">
+                                <span class="about__info-number" id="exp-years">6+</span>
+                                <span class="about__info-text">年经验</span>
+                            </div>
+                            <div class="about__info-item">
+                                <span class="about__info-number" id="project-count">5+</span>
+                                <span class="about__info-text">个项目</span>
+                            </div>
+                            <div class="about__info-item">
+                                <span class="about__info-number" id="article-count">0</span>
+                                <span class="about__info-text">篇文章</span>
+                            </div>
+                        </div>
+                        <div class="about__skills">
+                            <span class="about__skill-tag"><i class="fab fa-java"></i> Java</span>
+                            <span class="about__skill-tag"><i class="fab fa-html5"></i> HTML</span>
+                            <span class="about__skill-tag"><i class="fab fa-css3-alt"></i> CSS</span>
+                            <span class="about__skill-tag"><i class="fa-brands fa-node-js"></i> JavaScript</span>
+                            <span class="about__skill-tag"><i class="fa-brands fa-golang"></i> Go</span>
+                            <span class="about__skill-tag"><i class="fa-solid fa-hashtag"></i> C#</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 联系我 -->
+        <section class="contact section" id="contact">
+            <div class="container">
+                <div class="section__header">
+                    <span class="section__tag">Contact</span>
+                    <h2 class="section__title">联系我</h2>
+                    <p class="section__subtitle">有任何问题或想法？欢迎与我联系</p>
+                </div>
+
+                <div class="contact__content">
+                    <div class="contact__info">
+                        <div class="contact__info-card">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>邮箱</h4>
+                                <p>sadlieh@hotmail.com</p>
+                            </div>
+                        </div>
+                        <div class="contact__info-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>位置</h4>
+                                <p>中国 · 重庆</p>
+                            </div>
+                        </div>
+                        <div class="contact__info-card">
+                            <i class="fas fa-code-branch"></i>
+                            <div>
+                                <h4>GitHub</h4>
+                                <p>github.com/lieh-sad</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="contact__form" id="contact-form">
+                        <div class="contact__form-row">
+                            <div class="contact__form-group">
+                                <input type="text" class="contact__form-input" placeholder=" " required id="contact-name">
+                                <label class="contact__form-label" for="contact-name">姓名</label>
+                            </div>
+                            <div class="contact__form-group">
+                                <input type="email" class="contact__form-input" placeholder=" " required id="contact-email">
+                                <label class="contact__form-label" for="contact-email">邮箱</label>
+                            </div>
+                        </div>
+                        <div class="contact__form-group">
+                            <input type="text" class="contact__form-input" placeholder=" " required id="contact-subject">
+                            <label class="contact__form-label" for="contact-subject">主题</label>
+                        </div>
+                        <div class="contact__form-group">
+                            <textarea class="contact__form-input contact__form-textarea" placeholder=" " required id="contact-message"></textarea>
+                            <label class="contact__form-label" for="contact-message">消息</label>
+                        </div>
+                        <button type="submit" class="btn btn--primary contact__form-btn">
+                            <a href="mailto:sadlieh@hotmail.com">
+                            <i class="fas fa-paper-plane"></i>
+                            发送消息
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <a href="#" class="nav__logo">
+                        <span class="nav__logo-icon">&lt;/&gt;</span>
+                        <span class="nav__logo-text">Lieh<span class="highlight">Sad</span></span>
+                    </a>
+                    <p class="footer__description">
+                        用文字记录成长，用代码改变世界。
+                    </p>
+                </div>
+                <div class="footer__links">
+                    <div class="footer__links-group">
+                        <h4 class="footer__links-title">快速链接</h4>
+                        <a href="#home">首页</a>
+                        <a href="#blog">文章</a>
+                        <a href="#categories">分类</a>
+                        <a href="#about">关于</a>
+                    </div>
+                    <div class="footer__links-group">
+                        <h4 class="footer__links-title">分类</h4>
+                        <a href="#" data-filter="tech">技术</a>
+                        <a href="#" data-filter="life">生活</a>
+                        <a href="#" data-filter="tutorial">教程</a>
+                        <a href="#" data-filter="notes">随笔</a>
+                    </div>
+                    <div class="footer__links-group">
+                        <h4 class="footer__links-title">关注我</h4>
+                        <div class="footer__social">
+                            <a href="https://github.com/lieh-sad" target="_blank" rel="noopener noreferrer" class="footer__social-link"><i class="fab fa-github"></i></a>
+                            <a href="https://space.bilibili.com/1336760259" target="_blank" rel="noopener noreferrer" class="footer__social-link"><i class="fab fa-bilibili"></i></a>
+                            <a href="https://www.mtrbbs.top/space-uid-1289.html" target="_blank" rel="noopener noreferrer" class="footer__social-link"><i class="fa-solid fa-train"></i></a>
+                            <a href="https://lieh-sad.github.io/nanbin/" target="_blank" rel="noopener noreferrer" class="footer__social-link"><i class="fa-solid fa-globe"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2026 Lieh Sad. All rights reserved.</p>
+                <p>Built with <i class="fas fa-heart" style="color: var(--primary-color);"></i> and vanilla code</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 回到顶部 -->
+    <a href="#" class="scrollup" id="scroll-up">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
