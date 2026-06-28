@@ -10,5 +10,17 @@
         "color": "linear-gradient(135deg, #6c5ce7, #a29bfe)",
         "icon": "fa-solid fa-book",
         "externalUrl": "https://github.com/lieh-sad"
+    },
+    {
+        "id": 2,
+        "title": "栏杆更新",
+        "slug": "fence_update",
+        "excerpt": "NCM3.0.26628 迎来栏杆更新",
+        "category": "tech",
+        "date": "2026-06-28",
+        "readTime": "2 分钟",
+        "color": "linear-gradient(135deg, #6c5ce7, #a29bfe)",
+        "icon": "fa-solid fa-book",
+        "externalUrl": "https://zhuanlan.zhihu.com/p/2054577115165728853"
     }
 ]
